@@ -23,5 +23,5 @@ Simple 2 player Ping Pong Game made using pygame
 make sure  python and pygame are installed then run the file.
 ```
 pip install pygame
-python pong.py
+python ping_pong.py
 ```
