@@ -9,6 +9,8 @@ wn = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Ping Pong")
 
 
+player_1 = player_2 = 0
+
 direction = [0, 1]
 angle = [0, 1, 2]
 
@@ -64,6 +66,7 @@ while run:
         ball_vel_y *= (-1)
 
     if ball_x >= WIDTH - radius:
+        player_1 += 1
         ball_x, ball_y = WIDTH/2 - radius, HEIGHT/2 - radius
         dir = random.choice(direction)
         ang = random.choice(angle)
@@ -84,6 +87,7 @@ while run:
         ball_vel_x *= (-1)
 
     if ball_x <= 0 + radius:
+        player_2 += 1
         ball_x, ball_y = WIDTH/2 - radius, HEIGHT/2 - radius
         dir = random.choice(direction)
         ang = random.choice(angle)
@@ -151,6 +155,16 @@ while run:
     ball_y += ball_vel_y
     right_paddle_y += right_paddle_vel
     left_paddle_y += left_paddle_vel
+
+    font = pygame.font.SysFont('callibri', 24)
+    score_1 = font.render("Player 1: " + str(player_1), True, WHITE)
+    wn.blit(score_1, (10, 10))
+    score_2 = font.render("Player 2: " + str(player_2), True, WHITE)
+    wn.blit(score_2, (795, 10))
+    gad_left = font.render("Power-Ups Remaining: " + str(left_gadget_remaining), True, WHITE)
+    wn.blit(gad_left, (10, 30))
+    gad_right = font.render("Power-Ups Remaining: " + str(right_gadget_remaining), True, WHITE)
+    wn.blit(gad_right, (795, 30))
     
     pygame.draw.circle(wn, RED, (ball_x, ball_y), radius)
     pygame.draw.rect(wn, BLUE, pygame.Rect(left_paddle_x, left_paddle_y, paddle_width, paddle_height))
@@ -159,4 +173,15 @@ while run:
         pygame.draw.circle(wn, WHITE, (left_paddle_x + 10, left_paddle_y + 10), 4)
     if right_gadget == 1:
         pygame.draw.circle(wn, WHITE, (right_paddle_x + 10, right_paddle_y + 10), 4)
+
+    winning_font = pygame.font.SysFont('callibri', 100)
+    if player_1 >= 3:
+        wn.fill(BLACK)
+        endscreen = winning_font.render("PLAYER 1 WON!!!", True, WHITE)
+        wn.blit(endscreen, (200, 250))
+    if player_2 >= 3:
+        wn.fill(BLACK)
+        endscreen = winning_font.render("PLAYER 2 WON!!!", True, WHITE)
+        wn.blit(endscreen, (200, 250))
+
     pygame.display.update()
