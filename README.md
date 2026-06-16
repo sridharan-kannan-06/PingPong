@@ -20,7 +20,7 @@ Simple 2 player Ping Pong Game made using pygame
 - `←` - use auto track power up
 
 ## How to run
-make sure  python and pygame installed then run the file.
+make sure  python and pygame are installed then run the file.
 ```
 pip install pygame
 python pong.py
